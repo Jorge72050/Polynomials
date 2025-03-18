@@ -105,22 +105,32 @@ class LinkedList:
         # and comment in the below line. We use None to make sure
         # if there is an error where you accidentally include the
         # dummy node in your calculation, it will throw an error.
-        # self.dummy = Node(None, None)
-        self.head = None
+        self.dummy = Node(None, None)
+        #self.head = None
 
     # Insert the term with the coefficient coeff and exponent exp into the polynomial.
     # If a term with that exponent already exists, add the coefficients together.
     # You must keep the terms in descending order by exponent.
     def insert_term(self, coeff, exp):
-        pass
+        """
+        Inserting a term with a coeff and exp into the polynomial."
+        """
+        term = Node(coeff, exp, self.dummy)
+        if term.exp > term.next.exp:
+            
+
+        
 
     # Add a polynomial p to the polynomial and return the resulting polynomial as a new linked list.
     def add(self, p):
-        pass
+        """
+        Adding polynomials together.
+        """
 
     # Multiply a polynomial p with the polynomial and return the product as a new linked list.
     def mult(self, p):
-        pass
+        """
+        Multiplying polynomials, returning product as a linked list."""
 
     # Return a string representation of the polynomial.
     def __str__(self):
