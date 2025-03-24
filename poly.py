@@ -105,8 +105,8 @@ class LinkedList:
         # and comment in the below line. We use None to make sure
         # if there is an error where you accidentally include the
         # dummy node in your calculation, it will throw an error.
-        self.dummy = Node(None, None)
-        #self.head = None
+        # self.dummy = Node(None, None)
+        self.head = None
 
     # Insert the term with the coefficient coeff and exponent exp into the polynomial.
     # If a term with that exponent already exists, add the coefficients together.
@@ -115,8 +115,50 @@ class LinkedList:
         """
         Inserting a term with a coeff and exp into the polynomial."
         """
-        term = Node(coeff, exp, self.dummy)
-        if term.exp > term.next.exp:
+        term = Node(coeff, exp)
+        
+        # Keep track of whether coeff changes ??
+        initial_coeff = term.coeff
+
+        # Base cases
+        if coeff == 0:
+            return
+        if self.head == None:
+            self.head = term
+        elif term.exp > term.head.exp:
+            term.next = self.head
+            self.head = term
+        current = self.head
+        
+        # Case 1 - exponent is in the linked list
+
+        # Want to reach the term with matching exponents,
+        # Have current point to the term w/ matching exponent
+        # Keep track of previous if terms cancel out
+        while current.next is not None:
+            # Loops until the list reaches the end, adds coeffs 
+            # Together if a common exponent is found
+            if current.exp == term.exp:
+                current.coeff += term.coeff
+                break
+            previous = current
+            current = current.next
+        
+        # Skips current if the coeff is 0
+        if current.coeff == 0:
+            previous.next = current.next
+        
+        # Case 2 - Exponent was not found, insert it
+        if term.coeff == initial_coeff:
+            current = self.head
+            while current.exp > term.exp:
+                previous = current
+                current = current.next
+            # Previous should be at the term before term exp,
+            # Current is at 
+
+        
+
             
 
         
