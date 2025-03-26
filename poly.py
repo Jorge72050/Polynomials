@@ -97,6 +97,7 @@ class Node:
 
 
 class LinkedList:
+    "Initializing and definitng instance variables and methods for the linked list class."
     def __init__(self):
         # You are also welcome to use a sentinel/dummy node!
         # It is definitely recommended, which will we learn more
@@ -116,38 +117,37 @@ class LinkedList:
         Inserting a term with a coeff and exp into the polynomial."
         """
         term = Node(coeff, exp)
-        
+
         # Keep track of whether coeff changes ??
         initial_coeff = term.coeff
 
         # Base cases
         if coeff == 0:
             return
-        if self.head == None:
+        if self.head is None:
             self.head = term
-        elif term.exp > term.head.exp:
+        elif term.exp > self.head.exp:
             term.next = self.head
             self.head = term
         current = self.head
-        
+
         # Case 1 - exponent is in the linked list
 
         # Want to reach the term with matching exponents,
         # Have current point to the term w/ matching exponent
         # Keep track of previous if terms cancel out
         while current.next is not None:
-            # Loops until the list reaches the end, adds coeffs 
+            # Loops until the list reaches the end, adds coeffs
             # Together if a common exponent is found
             if current.exp == term.exp:
                 current.coeff += term.coeff
                 break
             previous = current
             current = current.next
-        
-        # Skips current if the coeff is 0
+        # Skips current if the coeff sums to 0
         if current.coeff == 0:
             previous.next = current.next
-        
+
         # Case 2 - Exponent was not found, insert it
         if term.coeff == initial_coeff:
             current = self.head
@@ -155,14 +155,7 @@ class LinkedList:
                 previous = current
                 current = current.next
             # Previous should be at the term before term exp,
-            # Current is at 
-
-        
-
-            
-
-        
-
+            # Current is at
     # Add a polynomial p to the polynomial and return the resulting polynomial as a new linked list.
     def add(self, p):
         """
