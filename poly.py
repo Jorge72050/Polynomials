@@ -203,9 +203,12 @@ class LinkedList:
                 current = current.next
                 self.size -= 1
             while self.size > 0:
-                new_coeff = current.coeff + current1.coeff
-                if new_coeff > 0:
-                    new_list.insert_term(new_coeff, current.exp)
+                if current.exp == current1.exp:
+                    new_coeff = current.coeff + current1.coeff
+                    if new_coeff > 0:
+                        new_list.insert_term(new_coeff, current.exp)
+                else:
+                    new_list.insert_term()
                 current = current.next
                 current1 = current1.next
                 self.size -= 1
@@ -289,11 +292,6 @@ def main():
     # get sum of p and q as a new linked list and print sum
 
     # get product of p and q as a new linked list and print product
-    poly1 = LinkedList()
-    poly1.insert_term(2,5)
-    poly1.insert_term(1,3)
-
-
 
 if __name__ == "__main__":
     main()
