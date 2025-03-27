@@ -16,7 +16,6 @@ UT EID 1: jn29423
 UT EID 2: wz5363
 """
 
-
 class Node:
     """
     A modified version of the Node class for linked lists (using proper class
@@ -186,7 +185,6 @@ class LinkedList:
         """
         Adding polynomials together.
         """
-        # p is a linked list
         new_list = LinkedList()
         current = self.head
         current1 = p.head
@@ -209,41 +207,24 @@ class LinkedList:
         new_list = LinkedList()
         current = self.head
         current1 = p.head
-        # count = self.size
         multiply_list = LinkedList()
         if current1 is None:
-            return self
+            return new_list
         if current is None:
-            return p
+            return new_list
         while current is not None and current1 is not None:
             multiply_list = LinkedList()
             while current1 is not None:
                 new_coeff = current.coeff * current1.coeff
-                new_exp = current.exp * current1.exp
+                if new_coeff == 0:
+                    return
+                new_exp = current.exp + current1.exp
                 multiply_list.insert_term(new_coeff, new_exp)
                 current1 = current1.next
             new_list = new_list.add(multiply_list)
             current = current.next
             current1 = p.head
         return new_list
-        # while current1 is not None and count != 0:
-        #     new_coeff = current.coeff * current1.coeff
-        #     new_exp = current.exp + current1.exp
-        #     current1 = current1.next
-        #     new_list.insert_term(new_coeff, new_exp)
-        # count -= 1
-        # while current1 is not None and current is not None and count != 0:
-        #     current1 = p.head
-        #     multiply_list = LinkedList()
-        #     while current1 is not None:
-        #         new_coeff = current.coeff * current1.coeff
-        #         new_exp = current.exp + current1.exp
-        #         multiply_list.insert_term(new_coeff, new_exp)
-        #         current1 = current1.next
-        #     new_list = new_list.add(multiply_list)
-        #     count -= 1
-        #     current = current.next
-        # return new_list
 
     # Return a string representation of the polynomial.
     # Fails one test case i think bc of add function not working
@@ -264,9 +245,6 @@ class LinkedList:
             final_str += elem
             final_str += " + "
         return final_str[:-3]
-
-
-
 
 def main():
     "Calling functions and reading from a file"
