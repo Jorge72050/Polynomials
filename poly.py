@@ -335,8 +335,9 @@ def main():
 
     # read the blank line separating p and q
     input()
-
+    
     # read data from stdin (terminal/file) using input() and create polynomial q
+
     # the first line in the text file is the length of the polynomial
     length = int(input())
     q = LinkedList()
