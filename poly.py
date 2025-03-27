@@ -295,6 +295,7 @@ class LinkedList:
         return new_list
 
     # Return a string representation of the polynomial.
+    # Fails one test case i think bc of add function not working
     def __str__(self):
         term_list = []
         temp_str = ""
@@ -320,11 +321,37 @@ def main():
     "Calling functions and reading from a file"
     # read data from stdin (terminal/file) using input() and create polynomial p
 
+    # the first line in the text file is the length of the polynomial
+    length = int(input())
+    p = LinkedList()
+    # loop through all the terms in the polynomial line by line
+    for _ in range(length):
+        line = input()
+        # separates the coefficient and exponent into strings in a list
+        line = line.split()
+        coeff = int(line[0])
+        exp = int(line[1])
+        p.insert_term(coeff, exp)
+
+    # read the blank line separating p and q
+    input()
+
     # read data from stdin (terminal/file) using input() and create polynomial q
-
+    # the first line in the text file is the length of the polynomial
+    length = int(input())
+    q = LinkedList()
+    # loop through all the terms in the polynomial line by line
+    for _ in range(length):
+        line = input()
+        # separates the coefficient and exponent into strings in a list
+        line = line.split()
+        coeff = int(line[0])
+        exp = int(line[1])
+        q.insert_term(coeff, exp)
     # get sum of p and q as a new linked list and print sum
-
+    print(p.add(q))
     # get product of p and q as a new linked list and print product
+    print(p.mult(q))
 
 if __name__ == "__main__":
     main()
