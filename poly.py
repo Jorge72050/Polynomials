@@ -217,7 +217,7 @@ class LinkedList:
             while current1 is not None:
                 new_coeff = current.coeff * current1.coeff
                 if new_coeff == 0:
-                    return
+                    break
                 new_exp = current.exp + current1.exp
                 multiply_list.insert_term(new_coeff, new_exp)
                 current1 = current1.next
