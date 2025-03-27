@@ -123,16 +123,19 @@ class LinkedList:
         # Base cases
         if coeff == 0:
             return
+        # empty list
         if self.head is None:
             self.head = term
             self.size += 1
             return
+        # term is the biggest, insert at beginning
         if term.exp > self.head.exp:
             term.next = self.head
             self.head = term
             self.size += 1
             return
         current = self.head
+        previous = None
 
         # Case 1 - exponent is in the linked list
 
@@ -144,26 +147,39 @@ class LinkedList:
             # Together if a common exponent is found
             if current.exp == term.exp:
                 current.coeff += term.coeff
-                #val = term.coeff - current.coeff
+                # if coefficient is 0
+                if current.coeff == 0:
+                    # Remove the node
+                    if previous is None:
+                        self.head = current.next
+                    else:
+                        previous.next = current.next
+                    self.size -= 1
                 return
             previous = current
             current = current.next
         # Skips current if the coeff sums to 0
-        if current is not None and current.coeff == 0:
-            previous.next = current.next
-            return
+        # if current is not None and current.coeff == 0:
+        #     previous.next = current.next
+        #     return
 
-        # Case 2 - Exponent was not found, insert it
-        current = self.head
+        # Case 2 - Exponent was not found, insert it at the end
+        current = self.head # begins a new traversal thru the list
         while current.next is not None:
             current = current.next
             self.size += 1
         current = self.head
+        previous = None
         while current is not None and current.exp > term.exp:
             previous = current
             current = current.next
         term.next = current
-        previous.next = term
+        # if the new term is the largest exponent so it needs to be the head
+        if previous is None:
+            self.head = term
+        else: # normal insert 
+            previous.next = term
+        self.size += 1
 
     # Add a polynomial p to the polynomial and return the resulting polynomial as a new linked list.
     def add(self, p):
@@ -277,10 +293,27 @@ class LinkedList:
             count -= 1
             current = current.next
         return new_list
-  
+
     # Return a string representation of the polynomial.
     def __str__(self):
-        pass
+        term_list = []
+        temp_str = ""
+        final_str = ""
+        if self.head is None:
+            return ""
+        # building string representation
+        current = self.head
+        # iterating through the entire list
+        while current is not None:
+            temp_str = f"({current.coeff}, {current.exp})"
+            term_list.append(temp_str)
+            current = current.next
+        for elem in term_list:
+            final_str += elem
+            final_str += " + "
+        return final_str[:-3]
+
+
 
 
 def main():
