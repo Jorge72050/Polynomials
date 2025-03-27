@@ -176,7 +176,7 @@ class LinkedList:
         # if the new term is the largest exponent so it needs to be the head
         if previous is None:
             self.head = term
-        else: # normal insert 
+        else:
             previous.next = term
         self.size += 1
 
@@ -264,9 +264,7 @@ def main():
 
     # read the blank line separating p and q
     input()
-    
     # read data from stdin (terminal/file) using input() and create polynomial q
-
     # the first line in the text file is the length of the polynomial
     length = int(input())
     q = LinkedList()
