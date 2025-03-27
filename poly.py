@@ -186,7 +186,6 @@ class LinkedList:
         """
         Adding polynomials together.
         """
-
         # p is a linked list
         new_list = LinkedList()
         current = self.head
@@ -195,72 +194,13 @@ class LinkedList:
             return self
         if current is None:
             return p
-        while current is not None and current1 is not None and self.size == 1 and p.size == 1:
-            # Both lists are of size 1 and one exponent is greater than other
-            if current.exp > current1.exp:
-                new_list.insert_term(current.coeff, current.exp)
-                new_list.insert_term(current1.coeff, current1.exp)
-            elif current.exp < current1.exp:
-                new_list.insert_term(current1.coeff, current1.exp)
-                new_list.insert_term(current.coeff, current.exp)
-            else:
-                current.coeff += current1.coeff
-                if current.coeff == 0:
-                    return new_list
-                new_list.insert_term(current.coeff, current.exp)
-            return new_list
-            # current = current.next
-            # current1 = current1.next
-
-        # Sizes of lists are not 1
-        if current is not None and p is not None and current.exp > current1.exp:
-            while current.exp > current1:
-                new_list.insert_term(current.coeff, current.exp)
-                current = current.next
-                self.size -= 1
-            while self.size > 0:
-                if current.exp == current1.exp:
-                    new_coeff = current.coeff + current1.coeff
-                    if new_coeff > 0:
-                        new_list.insert_term(new_coeff, current.exp)
-                else:
-                    new_list.insert_term()
-                current = current.next
-                current1 = current1.next
-                self.size -= 1
-                p.size -= 1
-            while p.size > 0:
-                new_list.insert_term(current1.coeff, current1.exp)
-                current1 = current1.next
-                p.size -= 1
-
-        elif current is not None and p is not None and current.exp < current1.exp:
-            while p.size > self.size:
-                new_list.insert_term(current.coeff, current.exp)
-                current1 = current1.next
-                p.size -= 1
-            while p.size > 0:
-                new_coeff = current.coeff + current1.coeff
-                if new_coeff > 0:
-                    new_list.insert_term(new_coeff, current.exp)
-                current = current.next
-                current1 = current1.next
-                self.size -= 1
-                p.size -= 1
-            while self.size > 0:
-                new_list.insert_term(current.coeff, current.exp)
-                current = current.next
-                self.size -= 1
-        
+        while current is not None:
+            new_list.insert_term(current.coeff, current.exp)
+            current = current.next
+        while current1 is not None:
+            new_list.insert_term(current1.coeff, current1.exp)
+            current1 = current1.next
         return new_list
-        # while current.head 
-        # while current is not None:
-        #     new_list.insert_term(current.coeff, current.exp)
-        #     current += 1
-        # while current1 is not None:
-        #     new_list.insert_term(current1.coeff, current.exp)
-        #     current1 += 1
-
 
     # Multiply a polynomial p with the polynomial and return the product as a new linked list.
     def mult(self, p):
@@ -269,30 +209,41 @@ class LinkedList:
         new_list = LinkedList()
         current = self.head
         current1 = p.head
-        count = self.size
+        # count = self.size
         multiply_list = LinkedList()
         if current1 is None:
             return self
         if current is None:
             return p
-        while current1 is not None and count != 0:
-            new_coeff = current.coeff * current1.coeff
-            new_exp = current.exp + current1.exp
-            current1 = current1.next
-            new_list.insert_term(new_coeff, new_exp)
-        count -= 1
-        while current1 is not None and current is not None and count != 0:
-            current1 = p.head
+        while current is not None and current1 is not None:
             multiply_list = LinkedList()
             while current1 is not None:
                 new_coeff = current.coeff * current1.coeff
-                new_exp = current.exp + current1.exp
+                new_exp = current.exp * current1.exp
                 multiply_list.insert_term(new_coeff, new_exp)
                 current1 = current1.next
             new_list = new_list.add(multiply_list)
-            count -= 1
             current = current.next
+            current1 = p.head
         return new_list
+        # while current1 is not None and count != 0:
+        #     new_coeff = current.coeff * current1.coeff
+        #     new_exp = current.exp + current1.exp
+        #     current1 = current1.next
+        #     new_list.insert_term(new_coeff, new_exp)
+        # count -= 1
+        # while current1 is not None and current is not None and count != 0:
+        #     current1 = p.head
+        #     multiply_list = LinkedList()
+        #     while current1 is not None:
+        #         new_coeff = current.coeff * current1.coeff
+        #         new_exp = current.exp + current1.exp
+        #         multiply_list.insert_term(new_coeff, new_exp)
+        #         current1 = current1.next
+        #     new_list = new_list.add(multiply_list)
+        #     count -= 1
+        #     current = current.next
+        # return new_list
 
     # Return a string representation of the polynomial.
     # Fails one test case i think bc of add function not working
